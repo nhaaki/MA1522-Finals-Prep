@@ -1,0 +1,163 @@
+<Section id="s5-1" chapterId="ch5" meta="§ 5.1" title="Orthogonality">
+
+### Definitions
+
+- Two vectors $u, v$ are **orthogonal** if $u \cdot v = 0$.
+- A set $\{v_1, \ldots, v_k\}$ is **orthogonal** if $v_i \cdot v_j = 0$ for all $i \neq j$.
+- A set is **orthonormal** if it is orthogonal and every vector is a unit vector.
+
+### Orthogonal Complement
+
+<Defn>The **orthogonal complement** of a subspace $V$ is $V^\perp = \{w \in \mathbb{R}^n : w \cdot v = 0 \text{ for all } v \in V\}$.</Defn>
+
+If $A$ has the spanning vectors of $V$ as its columns, then $V^\perp = \text{Null}(A^T)$.
+
+**Fundamental relation:** $\text{Row}(A)^\perp = \text{Null}(A)$.
+
+### Orthogonal Matrices
+
+An $n \times n$ matrix $Q$ is **orthogonal** if $Q^T = Q^{-1}$, equivalently $Q^T Q = I = Q Q^T$.
+
+This is equivalent to: the columns (equivalently, rows) of $Q$ form an **orthonormal basis** for $\mathbb{R}^n$.
+
+<Example title="Verifying an orthogonal matrix">
+
+$$Q = \frac{1}{\sqrt{2}}\begin{bmatrix}1 & 1\\1 & -1\end{bmatrix}$$
+
+$$Q^T Q = \frac{1}{2}\begin{bmatrix}1&1\\1&-1\end{bmatrix}\begin{bmatrix}1&1\\1&-1\end{bmatrix} = \frac{1}{2}\begin{bmatrix}2&0\\0&2\end{bmatrix} = I_2 \checkmark$$
+
+</Example>
+
+</Section>
+
+<Section id="s5-2" chapterId="ch5" meta="§ 5.2" title="Orthogonal & Orthonormal Bases">
+
+### Linear Independence
+
+Any orthogonal set of **nonzero** vectors is linearly independent. Every orthonormal set is linearly independent.
+
+### Coordinates w.r.t. an Orthogonal Basis
+
+If $S = \{u_1, \ldots, u_k\}$ is an **orthogonal basis** for $V$ and $v \in V$:
+
+$$v = \sum_{i=1}^k \frac{v \cdot u_i}{\|u_i\|^2} u_i, \qquad [v]_S = \begin{pmatrix}\dfrac{v \cdot u_1}{\|u_1\|^2} \\ \vdots \\ \dfrac{v \cdot u_k}{\|u_k\|^2}\end{pmatrix}$$
+
+If $S$ is **orthonormal**: $v = \sum_{i=1}^k (v \cdot u_i) u_i$, and $[v]_S = (v \cdot u_1, \ldots, v \cdot u_k)^T$.
+
+<Callout tag="Note" variant="warn">This dot-product shortcut works **only** if $S$ is genuinely orthogonal/orthonormal — not for general bases.</Callout>
+
+</Section>
+
+<Section id="s5-3" chapterId="ch5" meta="§ 5.3" title="Orthogonal Projection">
+
+### Orthogonal Projection Theorem
+
+Every $w \in \mathbb{R}^n$ decomposes **uniquely** as
+
+$$w = w_p + w_n, \qquad w_p \in V, \quad w_n \perp V$$
+
+If $S = \{u_1, \ldots, u_k\}$ is an orthogonal basis for $V$:
+
+$$w_p = \sum_{i=1}^k \frac{w \cdot u_i}{u_i \cdot u_i} u_i$$
+
+$w_p$ is the **orthogonal projection** of $w$ onto $V$.
+
+### Best Approximation Theorem
+
+The projection $w_p$ is the **closest vector** in $V$ to $w$:
+
+$$\|w - w_p\| \leq \|w - v\| \quad \text{for all } v \in V$$
+
+### Gram-Schmidt Orthogonalization
+
+Given linearly independent $\{u_1, \ldots, u_k\}$, construct an orthogonal set $\{v_1, \ldots, v_k\}$:
+
+$$v_1 = u_1$$
+
+$$v_j = u_j - \sum_{i=1}^{j-1} \frac{v_i \cdot u_j}{\|v_i\|^2} v_i$$
+
+Then $\bigl\{v_1/\|v_1\|, \ldots, v_k/\|v_k\|\bigr\}$ is an **orthonormal** set with the same span.
+
+<Example title="Gram-Schmidt in $\mathbb{R}^3$">
+
+Let $u_1 = (1,1,0)^T$, $u_2 = (1,0,1)^T$.
+
+$$v_1 = (1,1,0)^T, \quad \|v_1\|^2 = 2$$
+
+$$v_2 = u_2 - \frac{v_1 \cdot u_2}{\|v_1\|^2}v_1 = (1,0,1)^T - \frac{1}{2}(1,1,0)^T = \left(\tfrac{1}{2},-\tfrac{1}{2},1\right)^T$$
+
+Orthonormal set: $q_1 = \frac{1}{\sqrt{2}}(1,1,0)^T$, $q_2 = \frac{1}{\sqrt{6}}(1,-1,2)^T$.
+
+</Example>
+
+</Section>
+
+<Section id="s5-4" chapterId="ch5" meta="§ 5.4" title="QR Factorization">
+
+### Setup
+
+Let $A$ be $m \times n$ with **linearly independent columns** (so $m \geq n$ and $\text{rank}(A) = n$).
+
+### QR Factorization
+
+Apply Gram-Schmidt to the columns of $A$ to obtain orthonormal vectors $q_1, \ldots, q_n$. Set $Q = (q_1 \mid \cdots \mid q_n)$.
+
+$$A = QR$$
+
+where $Q$ is $m \times n$ with $Q^T Q = I_n$ (orthonormal columns), and $R = Q^T A$ is an invertible **upper triangular** matrix with positive diagonal entries.
+
+### Algorithm
+
+1. Apply Gram-Schmidt to columns of $A$ to get orthonormal $\{q_1, \ldots, q_n\}$.
+2. Set $Q = (q_1 \mid \cdots \mid q_n)$.
+3. Compute $R = Q^T A$.
+
+### Corollary
+
+If $A$ has linearly independent columns, then $A^T A$ is invertible and $A$ has a **left inverse** $(A^T A)^{-1} A^T$.
+
+</Section>
+
+<Section id="s5-5" chapterId="ch5" meta="§ 5.5" title="Least Square Approximation">
+
+### Definition
+
+<Defn>$u$ is a **least-squares solution** of $Ax = b$ if $\|Au - b\| \leq \|Av - b\|$ for all $v \in \mathbb{R}^n$.</Defn>
+
+### Key Theorem
+
+$u$ is a least-squares solution $\Leftrightarrow$ $Au$ is the **orthogonal projection** of $b$ onto $\text{Col}(A)$ $\Leftrightarrow$ $u$ satisfies the **normal equations**:
+
+$$A^T A x = A^T b$$
+
+Least-squares solutions may not be unique, but the projection $Au$ is always unique.
+
+### Projection Formula
+
+If $A = (u_1 \mid \cdots \mid u_k)$ and $V = \text{Col}(A)$, the orthogonal projection of $w$ onto $V$ is:
+
+$$w_p = A(A^T A)^{-1} A^T w$$
+
+### Using QR Factorization
+
+If $A = QR$ ($A$ has full column rank), the **unique** least-squares solution is:
+
+$$u = R^{-1} Q^T b$$
+
+i.e., solve $Rx = Q^T b$ by back substitution.
+
+<Example title="Least-squares fit">
+
+Given data points $(0,1),(1,3),(2,4)$, fit a line $y = c_0 + c_1 x$.
+
+$$A = \begin{bmatrix}1&0\\1&1\\1&2\end{bmatrix}, \quad b = \begin{bmatrix}1\\3\\4\end{bmatrix}$$
+
+Normal equations $A^T A x = A^T b$:
+
+$$\begin{bmatrix}3&3\\3&5\end{bmatrix}\begin{bmatrix}c_0\\c_1\end{bmatrix} = \begin{bmatrix}8\\11\end{bmatrix}$$
+
+Solving: $c_0 = \tfrac{7}{6}$, $c_1 = \tfrac{3}{2}$. Best-fit line: $y = \tfrac{7}{6} + \tfrac{3}{2}x$.
+
+</Example>
+
+</Section>

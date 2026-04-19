@@ -1,0 +1,227 @@
+<Section id="s3-1" chapterId="ch3" meta="§ 3.1" title="Euclidean Vector Spaces">
+
+### Vectors and $\mathbb{R}^n$
+
+An **$n$-vector** is an ordered list of $n$ real numbers. The **Euclidean $n$-space** $\mathbb{R}^n$ is the set of all $n$-vectors.
+
+### Abstract Vector Space
+
+A set $V$ with addition and scalar multiplication satisfying **10 axioms** is called a **vector space**. The axioms include:
+
+1. Closure under addition and scalar multiplication
+2. Commutativity and associativity of addition
+3. Zero vector: $\mathbf{0} + v = v$
+4. Additive inverse: $v + (-v) = \mathbf{0}$
+5. Scalar identity: $1 \cdot v = v$
+6. Distributive laws: $\alpha(u+v) = \alpha u + \alpha v$ and $(\alpha+\beta)v = \alpha v + \beta v$
+
+**Examples:** $\mathbb{R}^n$, polynomials of degree $\leq n$, $m \times n$ real matrices $\mathbb{R}^{m \times n}$.
+
+</Section>
+
+<Section id="s3-2" chapterId="ch3" meta="§ 3.2" title="Dot Product, Norm & Distance">
+
+### Dot Product
+
+$$u \cdot v = u_1 v_1 + u_2 v_2 + \cdots + u_n v_n$$
+
+Properties: symmetric, linear, **positive definite** ($u \cdot u \geq 0$, equal to 0 iff $u = \mathbf{0}$).
+
+### Norm (Length)
+
+$$\|u\| = \sqrt{u \cdot u} = \sqrt{u_1^2 + \cdots + u_n^2}$$
+
+A **unit vector** has $\|u\| = 1$. **Normalizing**: $\hat{u} = \dfrac{u}{\|u\|}$.
+
+### Distance
+
+$$d(u, v) = \|u - v\|$$
+
+### Angle Between Vectors
+
+$$\cos\theta = \frac{u \cdot v}{\|u\| \cdot \|v\|}$$
+
+Two vectors are **orthogonal** if $u \cdot v = 0$ (i.e., $\theta = 90°$).
+
+<Example title="Norm and angle in $\mathbb{R}^3$">
+
+Let $u = (1, 2, 2)$ and $v = (2, 1, -2)$.
+
+$$\|u\| = \sqrt{1+4+4} = 3, \quad \|v\| = \sqrt{4+1+4} = 3$$
+
+$$u \cdot v = 2 + 2 - 4 = 0$$
+
+So $u$ and $v$ are **orthogonal**.
+
+</Example>
+
+</Section>
+
+<Section id="s3-3" chapterId="ch3" meta="§ 3.3" title="Linear Combinations & Spans">
+
+### Linear Combination
+
+A **linear combination** of $u_1, \ldots, u_k$ is $c_1 u_1 + c_2 u_2 + \cdots + c_k u_k$ for scalars $c_1, \ldots, c_k$.
+
+### Span
+
+$$\text{span}\{u_1, \ldots, u_k\} = \{ c_1 u_1 + \cdots + c_k u_k \mid c_i \in \mathbb{R} \}$$
+
+### Algorithm: Is $v \in \text{span}\{u_1, \ldots, u_k\}$?
+
+Form $A = (u_1 \mid u_2 \mid \cdots \mid u_k)$. Then $v \in \text{span}$ iff the system $Ax = v$ is **consistent**.
+
+### Algorithm: Does $\text{span}(S) = \mathbb{R}^n$?
+
+$\text{span}(S) = \mathbb{R}^n$ iff the RREF of $A = (u_1 \mid \cdots \mid u_k)$ has **no zero rows** (i.e., $A$ has $n$ pivot rows).
+
+<Callout tag="Key fact">If $k < n$, then $\text{span}(S) \neq \mathbb{R}^n$ — you cannot span a higher-dimensional space with fewer vectors.</Callout>
+
+<Example title="Checking membership in a span">
+
+Is $v = (5, 4, 7)^T$ in $\text{span}\{u_1, u_2\}$ where $u_1 = (1,2,1)^T$, $u_2 = (2,1,3)^T$?
+
+$$\left[\begin{array}{cc|c} 1 & 2 & 5 \\ 2 & 1 & 4 \\ 1 & 3 & 7 \end{array}\right] \xrightarrow{\text{RREF}} \left[\begin{array}{cc|c} 1 & 0 & 1 \\ 0 & 1 & 2 \\ 0 & 0 & 0 \end{array}\right]$$
+
+Consistent ($c_1 = 1$, $c_2 = 2$), so $v = u_1 + 2u_2 \in \text{span}\{u_1, u_2\}$.
+
+</Example>
+
+</Section>
+
+<Section id="s3-4" chapterId="ch3" meta="§ 3.4" title="Subspaces">
+
+### Definition
+
+<Defn>A nonempty subset $V \subseteq \mathbb{R}^n$ is a **subspace** if it is closed under addition and scalar multiplication — equivalently, closed under all linear combinations.</Defn>
+
+The three conditions to check are: (1) $\mathbf{0} \in V$; (2) closed under scalar multiplication; (3) closed under addition.
+
+### Key Theorem
+
+The solution set of $Ax = b$ is a subspace **iff** $b = \mathbf{0}$. The solution set of a homogeneous system is called the **solution space**.
+
+<Callout tag="Key fact">$V \subseteq \mathbb{R}^n$ is a subspace $\Leftrightarrow$ $V = \text{span}(S)$ for some finite set $S \subseteq \mathbb{R}^n$.</Callout>
+
+### Subspaces of $\mathbb{R}^2$
+
+$\{\mathbf{0}\}$, lines through the origin, and all of $\mathbb{R}^2$.
+
+### Subspaces of $\mathbb{R}^3$
+
+$\{\mathbf{0}\}$, lines through the origin, planes through the origin, and all of $\mathbb{R}^3$.
+
+### Affine Spaces
+
+The solution set of $Ax = b$ ($b \neq \mathbf{0}$) is $u + V$, a **coset** (affine shift) of the solution space $V$ of $Ax = \mathbf{0}$. It is **not** a subspace.
+
+</Section>
+
+<Section id="s3-5" chapterId="ch3" meta="§ 3.5" title="Linear Independence">
+
+### Definition
+
+<Defn>$\{u_1, \ldots, u_k\}$ is **linearly independent** if the only solution to $c_1 u_1 + \cdots + c_k u_k = \mathbf{0}$ is $c_1 = \cdots = c_k = 0$. Otherwise it is **linearly dependent**.</Defn>
+
+### Algorithm
+
+Form $A = (u_1 \mid \cdots \mid u_k)$. The set is linearly independent iff the RREF of $A$ has **no non-pivot (free) columns** — equivalently, $Ax = \mathbf{0}$ has only the trivial solution.
+
+<Callout tag="Key result">If $k > n$, then any set of $k$ vectors in $\mathbb{R}^n$ is **linearly dependent**.</Callout>
+
+<Example title="Checking linear independence">
+
+Are $u_1 = (1,2,3)^T$, $u_2 = (2,5,7)^T$, $u_3 = (1,3,4)^T$ linearly independent?
+
+$$A = \begin{bmatrix}1&2&1\\2&5&3\\3&7&4\end{bmatrix} \xrightarrow{\text{RREF}} \begin{bmatrix}1&0&-1\\0&1&1\\0&0&0\end{bmatrix}$$
+
+Column 3 is non-pivot (free variable), so the set is **linearly dependent**. In fact, $-u_1 + u_2 - u_3 = \mathbf{0}$... wait, let us check: $u_3 = -u_1 + u_2$? $(1,3,4)^T = -(1,2,3)^T + (2,5,7)^T = (1,3,4)^T$ ✓.
+
+</Example>
+
+</Section>
+
+<Section id="s3-6" chapterId="ch3" meta="§ 3.6" title="Basis & Coordinates">
+
+### Definition
+
+<Defn>A set $S = \{u_1, \ldots, u_k\}$ is a **basis** for a subspace $V$ if: (1) $\text{span}(S) = V$, and (2) $S$ is linearly independent.</Defn>
+
+Every $v \in V$ can then be written as a **unique** linear combination of vectors in $S$.
+
+### Standard Basis
+
+$\mathbb{R}^n$ has the **standard basis** $\{e_1, e_2, \ldots, e_n\}$ where $e_i$ has a 1 in position $i$ and 0s elsewhere.
+
+### Invertibility and Basis
+
+An $n \times n$ matrix $A$ is invertible $\Leftrightarrow$ its **columns** form a basis for $\mathbb{R}^n$.
+
+### Coordinates Relative to a Basis
+
+If $S = \{u_1, \ldots, u_k\}$ is a basis for $V$ and $v = c_1 u_1 + \cdots + c_k u_k$, then
+
+$$[v]_S = \begin{pmatrix} c_1 \\ \vdots \\ c_k \end{pmatrix}$$
+
+Find $[v]_S$ by solving the augmented system $(u_1 \mid \cdots \mid u_k \mid v) \xrightarrow{\text{RREF}} (I_k \mid [v]_S)$.
+
+</Section>
+
+<Section id="s3-7" chapterId="ch3" meta="§ 3.7" title="Dimension">
+
+### Definition
+
+<Defn>The **dimension** $\dim(V)$ of a subspace $V$ is the number of vectors in any basis of $V$. All bases of a subspace have the same number of vectors.</Defn>
+
+**Key results:**
+
+- $\dim(\text{solution space of } Ax = \mathbf{0}) = $ number of **non-pivot columns** in RREF of $A$.
+- If $U \subseteq V$, then $\dim(U) \leq \dim(V)$; equality holds iff $U = V$.
+
+### Shortcuts to Check for a Basis
+
+In a subspace $V$ with $\dim(V) = k$, a set $S \subseteq V$ with $|S| = k$ is a basis iff:
+- $S$ is **linearly independent**, OR
+- $\text{span}(S) = V$
+
+(Either condition alone suffices when $|S| = k$.)
+
+### Spanning Set Theorem
+
+Any spanning set of a nonzero subspace contains a **subset** that is a basis.
+
+### Linear Independence Extension Theorem
+
+Any linearly independent subset of a subspace can be **extended** to a basis.
+
+</Section>
+
+<Section id="s3-8" chapterId="ch3" meta="§ 3.8" title="Transition Matrices">
+
+### Definition
+
+Given two bases $S = \{u_1, \ldots, u_k\}$ and $T = \{v_1, \ldots, v_k\}$ for the same subspace $V$, the **transition matrix from $T$ to $S$** is
+
+$$P = \bigl([v_1]_S \mid [v_2]_S \mid \cdots \mid [v_k]_S\bigr)$$
+
+Then for any $w \in V$: $[w]_S = P[w]_T$.
+
+### Algorithm
+
+$$\bigl(S \mid T\bigr) = (u_1 \mid \cdots \mid u_k \mid v_1 \mid \cdots \mid v_k) \xrightarrow{\text{RREF}} (I_k \mid P)$$
+
+### Inverse of Transition Matrix
+
+$P^{-1}$ is the transition matrix **from $S$ to $T$**.
+
+<Example title="Transition between two bases of $\mathbb{R}^2$">
+
+$S = \{u_1, u_2\}$ where $u_1 = (1,1)^T$, $u_2 = (1,-1)^T$; $T = \{v_1, v_2\}$ where $v_1 = (2,0)^T$, $v_2 = (0,2)^T$.
+
+$$\left[\begin{array}{cc|cc} 1 & 1 & 2 & 0 \\ 1 & -1 & 0 & 2 \end{array}\right] \xrightarrow{\text{RREF}} \left[\begin{array}{cc|cc} 1 & 0 & 1 & 1 \\ 0 & 1 & 1 & -1 \end{array}\right]$$
+
+So the transition matrix from $T$ to $S$ is $P = \begin{bmatrix}1&1\\1&-1\end{bmatrix}$.
+
+</Example>
+
+</Section>

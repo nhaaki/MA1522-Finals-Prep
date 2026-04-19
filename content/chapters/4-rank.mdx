@@ -1,0 +1,84 @@
+<Section id="s4-1" chapterId="ch4" meta="§ 4.1" title="Column Space, Row Space & Nullspace">
+
+### Definitions
+
+For an $m \times n$ matrix $A$:
+
+<Defn>
+
+- **Row space** $\text{Row}(A) \subseteq \mathbb{R}^n$: the span of the **rows** of $A$.
+- **Column space** $\text{Col}(A) \subseteq \mathbb{R}^m$: the span of the **columns** of $A$. Equivalently, $\text{Col}(A) = \{v : Ax = v \text{ is consistent}\}$.
+- **Nullspace** $\text{Null}(A) \subseteq \mathbb{R}^n$: the solution space of $Ax = \mathbf{0}$. Its dimension is the **nullity** of $A$.
+
+</Defn>
+
+### Finding Bases
+
+| Subspace | How to find a basis |
+|---|---|
+| $\text{Row}(A)$ | **Nonzero rows** of the RREF of $A$ |
+| $\text{Col}(A)$ | Columns of the **original** $A$ that correspond to **pivot columns** in the RREF |
+| $\text{Null}(A)$ | Parameter vectors from the general solution to $Ax = \mathbf{0}$ |
+
+<Callout tag="Important">Row operations preserve the row space and the linear dependence relationships between columns — but **not** the column space itself. Always take column-space basis vectors from the **original** matrix $A$, not from the RREF.</Callout>
+
+<Example title="All three subspaces from one matrix">
+
+$$A = \begin{bmatrix} 1 & 2 & 0 & 1 \\ 2 & 4 & 1 & 3 \\ 0 & 0 & 1 & 1 \end{bmatrix} \xrightarrow{\text{RREF}} \begin{bmatrix} 1 & 2 & 0 & 1 \\ 0 & 0 & 1 & 1 \\ 0 & 0 & 0 & 0 \end{bmatrix}$$
+
+**Row space basis:** $\{(1,2,0,1),\,(0,0,1,1)\}$ (nonzero rows of RREF).
+
+**Column space basis:** columns 1 and 3 of **original** $A$: $\{(1,2,0)^T,\,(0,1,1)^T\}$.
+
+**Nullspace:** columns 2 and 4 are free. Set $x_2 = s$, $x_4 = t$:
+
+$$x = s\begin{bmatrix}-2\\1\\0\\0\end{bmatrix} + t\begin{bmatrix}-1\\0\\-1\\1\end{bmatrix}$$
+
+</Example>
+
+</Section>
+
+<Section id="s4-2" chapterId="ch4" meta="§ 4.2" title="Rank">
+
+### Definition
+
+$$\text{rank}(A) = \dim(\text{Col}(A)) = \dim(\text{Row}(A)) = \text{number of pivot columns in RREF}$$
+
+### Rank–Nullity Theorem
+
+$$\text{rank}(A) + \text{nullity}(A) = n \quad (\text{number of columns of } A)$$
+
+### Summary Table
+
+| Subspace | Subspace of | Dimension |
+|---|---|---|
+| $\text{Col}(A)$ | $\mathbb{R}^m$ | $\text{rank}(A)$ |
+| $\text{Row}(A)$ | $\mathbb{R}^n$ | $\text{rank}(A)$ |
+| $\text{Null}(A)$ | $\mathbb{R}^n$ | $\text{nullity}(A)$ |
+
+### Full Rank — Column Full Rank ($\text{rank} = n$)
+
+$A$ has full column rank iff:
+- Columns of $A$ are **linearly independent**
+- $Ax = \mathbf{0}$ has only the trivial solution (nullity = 0)
+- $A^T A$ is invertible
+- $A$ has a **left inverse**
+
+### Full Rank — Row Full Rank ($\text{rank} = m$)
+
+$A$ has full row rank iff:
+- Columns of $A$ **span** $\mathbb{R}^m$
+- $Ax = b$ is consistent for every $b$
+- $A A^T$ is invertible
+- $A$ has a **right inverse**
+
+### Updated Equivalent Statements for Invertibility
+
+Add to the list from §2.6 and §3.6 (for square $A$):
+
+- $\text{rank}(A) = n$
+- $\text{nullity}(A) = 0$
+
+<Callout tag="Key fact">For an $m \times n$ matrix: $\text{rank}(A) \leq \min(m,n)$. If $A$ is square ($m = n$), full rank $\Leftrightarrow$ $A$ is invertible.</Callout>
+
+</Section>

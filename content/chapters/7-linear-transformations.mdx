@@ -1,0 +1,114 @@
+<Section id="s7-1" chapterId="ch7" meta="§ 7.1" title="Introduction to Linear Transformations">
+
+### Definition
+
+<Defn>$T: \mathbb{R}^n \to \mathbb{R}^m$ is a **linear transformation** if for all $u, v \in \mathbb{R}^n$ and scalars $\alpha, \beta$, we have $T(\alpha u + \beta v) = \alpha T(u) + \beta T(v)$.</Defn>
+
+$$T(\alpha u + \beta v) = \alpha T(u) + \beta T(v)$$
+
+Equivalently: $T$ preserves scalar multiplication ($T(\alpha u) = \alpha T(u)$) and addition ($T(u+v) = T(u)+T(v)$).
+
+**Immediate consequence:** $T(\mathbf{0}) = \mathbf{0}$ for any linear transformation.
+
+### Standard Matrix
+
+Every linear transformation $T: \mathbb{R}^n \to \mathbb{R}^m$ has a unique **standard matrix** $A$ with $T(u) = Au$:
+
+$$A = \bigl(T(e_1) \mid T(e_2) \mid \cdots \mid T(e_n)\bigr)$$
+
+where $e_1, \ldots, e_n$ is the standard basis for $\mathbb{R}^n$.
+
+### Checking Non-Linearity
+
+$T$ is **not** linear if:
+- $T(\mathbf{0}) \neq \mathbf{0}$
+- $T(\alpha u) \neq \alpha T(u)$ for some $\alpha, u$
+- $T(u+v) \neq T(u)+T(v)$ for some $u, v$
+
+### Common Linear Transformations
+
+<Example title="Rotation in $\mathbb{R}^2$">
+
+Rotation by angle $\theta$ counterclockwise: $T(e_1) = (\cos\theta, \sin\theta)^T$, $T(e_2) = (-\sin\theta, \cos\theta)^T$.
+
+$$A = \begin{bmatrix}\cos\theta & -\sin\theta \\ \sin\theta & \cos\theta\end{bmatrix}$$
+
+</Example>
+
+<Example title="Reflection across the $x$-axis in $\mathbb{R}^2$">
+
+$T(e_1) = (1,0)^T$, $T(e_2) = (0,-1)^T$.
+
+$$A = \begin{bmatrix}1 & 0 \\ 0 & -1\end{bmatrix}$$
+
+</Example>
+
+### Representation w.r.t. a Basis
+
+Given basis $S = \{u_1, \ldots, u_n\}$ for $\mathbb{R}^n$, the representation of $T$ w.r.t. $S$ is
+
+$$[T]_S = \bigl(T(u_1) \mid T(u_2) \mid \cdots \mid T(u_n)\bigr)$$
+
+Then $T(v) = [T]_S \cdot [v]_S$ (using $S$-coordinates).
+
+If $P$ is the transition matrix from the standard basis $E$ to $S$, the standard matrix $A$ satisfies $A = [T]_S \cdot P$.
+
+</Section>
+
+<Section id="s7-2" chapterId="ch7" meta="§ 7.2" title="Range & Kernel">
+
+### Range (Image)
+
+$$R(T) = T(\mathbb{R}^n) = \{T(u) : u \in \mathbb{R}^n\} = \text{Col}(A)$$
+
+**Rank of $T$:** $\text{rank}(T) = \dim(R(T)) = \text{rank}(A)$.
+
+### Kernel (Null Space)
+
+$$\ker(T) = \{u \in \mathbb{R}^n : T(u) = \mathbf{0}\} = \text{Null}(A)$$
+
+**Nullity of $T$:** $\text{nullity}(T) = \dim(\ker(T)) = \text{nullity}(A)$.
+
+The **Rank-Nullity Theorem** applies: $\text{rank}(T) + \text{nullity}(T) = n$.
+
+### Injectivity (One-to-One)
+
+$T$ is **injective** $\Leftrightarrow$ $\ker(T) = \{\mathbf{0}\}$ $\Leftrightarrow$ $Ax = \mathbf{0}$ has only the trivial solution $\Leftrightarrow$ $\text{rank}(A) = n$.
+
+If $T: \mathbb{R}^n \to \mathbb{R}^m$ is injective, necessarily $n \leq m$.
+
+### Surjectivity (Onto)
+
+$T$ is **surjective** $\Leftrightarrow$ $R(T) = \mathbb{R}^m$ $\Leftrightarrow$ $\text{Col}(A) = \mathbb{R}^m$ $\Leftrightarrow$ $\text{rank}(A) = m$.
+
+If $T: \mathbb{R}^n \to \mathbb{R}^m$ is surjective, necessarily $n \geq m$.
+
+### Bijectivity
+
+$T: \mathbb{R}^n \to \mathbb{R}^n$ is **bijective** $\Leftrightarrow$ $n = m$ and the standard matrix $A$ is **invertible**.
+
+### Updated Equivalent Statements for Invertibility
+
+Add (for $T_A: \mathbb{R}^n \to \mathbb{R}^n$ with standard matrix $A$):
+- $T_A$ is **injective** (one-to-one).
+- $T_A$ is **surjective** (onto).
+
+<Callout tag="Summary">
+
+For a square matrix $A$ of order $n$: all 20 statements in the Master Theorem (see Appendix) are equivalent to "$A$ is invertible". The two new additions from Chapter 7 are that $T_A$ is injective and that $T_A$ is surjective.
+
+</Callout>
+
+<Example title="Kernel and range of a projection">
+
+Let $T: \mathbb{R}^3 \to \mathbb{R}^3$ project onto the $xy$-plane: $T(x,y,z) = (x,y,0)$.
+
+$$A = \begin{bmatrix}1&0&0\\0&1&0\\0&0&0\end{bmatrix}$$
+
+$R(T) = \text{Col}(A) = $ the $xy$-plane, $\dim = 2$. $\ker(T) = $ the $z$-axis, $\dim = 1$.
+
+$\text{rank}(T) + \text{nullity}(T) = 2 + 1 = 3 = n$ ✓. $T$ is neither injective nor surjective.
+
+</Example>
+
+</Section>
