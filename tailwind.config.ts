@@ -5,7 +5,7 @@ const config: Config = {
   content: [
     './app/**/*.{ts,tsx,mdx}',
     './components/**/*.{ts,tsx}',
-    './content/**/*.{mdx}',
+    './content/**/*.mdx',
     './mdx-components.tsx',
   ],
   theme: {
