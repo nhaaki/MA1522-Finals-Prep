@@ -30,9 +30,12 @@ function dispatchProgress() {
   window.dispatchEvent(new CustomEvent(PROGRESS_EVENT))
 }
 
-let _snapshot: ProgressState = {}
+let _snapshot: ProgressState | null = null
 
 function subscribe(callback: () => void) {
+  if (_snapshot === null) {
+    _snapshot = readState()
+  }
   const handler = () => {
     _snapshot = readState()
     callback()
@@ -46,6 +49,9 @@ function subscribe(callback: () => void) {
 }
 
 function getSnapshot(): ProgressState {
+  if (_snapshot === null) {
+    _snapshot = readState()
+  }
   return _snapshot
 }
 

@@ -3,6 +3,7 @@ import TopBar from '@/components/TopBar'
 import ChapterHeader from '@/components/ChapterHeader'
 import ChapterToc from '@/components/ChapterToc'
 import ChapterFooter from '@/components/ChapterFooter'
+import PracticeSection from '@/components/practice/PracticeSection'
 import { getChapter, CHAPTERS } from '@/lib/chapters'
 
 type Props = {
@@ -52,6 +53,7 @@ export default async function ChapterPage({ params }: Props) {
           <ChapterToc items={chapter.toc} />
           <div className="sections max-w-read">
             <MDXContent />
+            <PracticeSection chapterId={chapter.id} />
           </div>
         </div>
         <ChapterFooter slug={slug} />
